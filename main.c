@@ -12,17 +12,16 @@ typedef struct {
     int score;
 } Student;
 
-Student g_students[NUM_STUDENTS];
+static Student g_students[NUM_STUDENTS];
 
-
-void fix_case(char* ch) {
+static void fix_case(char* ch) {
     // could use toupper() from ctype.h
     if (*ch > 0x60) {
         *ch -= 0x20;
     }
 }
 
-void parse_student(char* buffer, Student* student) {
+static void parse_student(char* buffer, Student* student) {
     char *tok = strtok(buffer, " ");
     strcpy(student->name, tok);
     fix_case(student->name);
@@ -33,7 +32,7 @@ void parse_student(char* buffer, Student* student) {
     }
 }
 
-float find_mean() {
+static float find_mean() {
     float result = 0;
     for (int i = 0; i < NUM_STUDENTS; ++i) {
         result += (float) g_students[i].score;
@@ -41,7 +40,7 @@ float find_mean() {
     return result / NUM_STUDENTS;
 }
 
-Student find_best() {
+static Student find_best() {
     Student best = g_students[0];
     for (int i = 0; i < NUM_STUDENTS; ++i) {
         if (g_students[i].score > best.score) {
